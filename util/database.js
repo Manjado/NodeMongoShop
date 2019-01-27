@@ -1,10 +1,14 @@
-// sequelize use mysql2 behind the scene
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-const Sequelize = require('sequelize');
+const mongoConnect = (callback) => {
+    MongoClient.connect(
+        'mongodb+srv://xxxxxxxxxx@cluster0-flk3y.mongodb.net/test?retryWrites=true')
+        .then(client => {
+            console.log('connected!');
+            callback(client)
+        })
+        .catch(err => console.log(err));
+}
 
-const sequelize = new Sequelize('node-complete' , 'root', 'Nahum13@', {
-   dialect: 'mysql',
-   host: 'localhost'
-});
-
-module.exports = sequelize;
+module.exports = mongoConnect;
